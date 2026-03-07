@@ -11,8 +11,8 @@ loginBtn.addEventListener('click', () => {
     const password = getById('password');
 
     if (username.value.trim() === 'admin' && password.value.trim() === 'admin123') {
-        window.location.assign('./main.html')
         password.value = ''
+        window.location.assign('./main.html')
     } else {
         alert('username or password wrong!');
         username.value = ''
