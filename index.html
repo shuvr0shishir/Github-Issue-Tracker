@@ -17,12 +17,55 @@
     <link rel="stylesheet" href="./styles/style.css">
 
     <!-- favicon -->
-     <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon">
 </head>
 
 <body>
-    <h1 class="bg-amber-500">GitHub Issue Tracker</h1>
-    <button class="btn btn-primary btn-outline"> click</button>
+    <!-- Login -->
+    <main class="min-h-screen bg-[#F8FAFC] flex justify-center items-center ">
+        <section class="login-container bg-white p-8 rounded-lg shadow-xs w-[520px] space-y-6">
+            <div class="logo text-center">
+                <img class="mx-auto" src="./assets/github-logo.png" alt="">
+                <h1 class="font-semibold text-2xl text-[#1F2937]">GitHub Issues Tracker</h1>
+                <p class="text-[#64748B]">Sign in to manage your issues</p>
+            </div>
+
+            <!-- login form -->
+            <fieldset>
+                <!-- username -->
+                <div class="pb-4 space-y-2">
+                    <label class="block font-medium text-[16px]">Username</label>
+                    <input id="username" type="text"
+                        class="p-4 rounded-lg w-full border border-gray-200 outline-[#4A00ff60] placeholder-[#64748B]"
+                        placeholder="Enter Username" />
+                    <p class="warning hidden text-[#4A00FF] text-[14px]">Default: admin</p>
+                </div>
+
+                <!-- password -->
+                <div class="pb-6 space-y-2">
+                    <label class="block font-medium text-[16px]">Password</label>
+                    <input id="password" type="password"
+                        class="p-4 rounded-lg w-full border border-gray-200 outline-[#4A00ff60] placeholder-[#64748B]"
+                        placeholder="Enter Password" />
+                    <p class="warning hidden text-[#4A00FF] text-[14px]">Default: admin123</p>
+                </div>
+
+                <button id="login-btn" class="btn btn-primary w-full rounded-lg font-semibold text-[16px]">Sign In</button>
+            </fieldset>
+
+            <div class="divider">OR</div>
+
+            <div class="text-center">
+                <h3 class="pb-2">Demo Credentials:</h3>
+                <div class="bg-[#F8FAFC] rounded-lg py-6 ">
+                    <p><span class="font-semibold">Username:</span> admin</p>
+                    <p><span class="font-semibold">Password:</span> admin123</p>
+                    <p></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
 
     <script src="./scripts/machine.js"></script>
     <script src="./scripts/script.js"></script>
