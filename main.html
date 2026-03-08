@@ -33,23 +33,100 @@
                     <i class="fa-brands fa-sistrix text-[#64748B]"></i>
                     <input type="search" required placeholder="Search issues..." />
                 </label>
-                <button class="btn bg-[#4A00FF] text-white rounded-md md:text-[16px] "><i class="fa-solid fa-plus"></i> New
+                <button class="btn bg-[#4A00FF] text-white rounded-md md:text-[16px] "><i class="fa-solid fa-plus"></i>
+                    New
                     Issue</button>
             </div>
         </nav>
     </header>
 
-    <main class="bg-[#F8FAFC] py-5 md:py-15">
+    <main class="bg-[#F8FAFC] py-5 md:py-15 min-h-screen">
         <!-- tab section -->
-         <section class="md:max-w-[69%] mx-auto bg-white rounded-lg flex flex-row gap-2 p-6 shadow">
-            <button id="all-tab" class="bg-[#4A00FF] text-white  btn text-[16px] font-semibold md:w-[120px] md:h-10 rounded">All</button>
-            <button id="open-tab" class="bg-white text-[#64748B]  btn text-[16px] font-semibold md:w-[120px] md:h-10 rounded">Open</button>
-            <button id="close-tab" class="bg-white text-[#64748B]  btn text-[16px] font-semibold md:w-[120px] md:h-10 rounded">Closed</button>
-         </section>
+        <section class="max-w-[95%] md:max-w-[69%] mx-auto bg-white rounded-lg flex flex-row gap-2 p-6 shadow">
+            <button id="all-tab"
+                class="bg-[#4A00FF] text-white  btn text-[16px] font-semibold md:w-[120px] md:h-10 rounded">All</button>
+            <button id="open-tab"
+                class="bg-white text-[#64748B]  btn text-[16px] font-semibold md:w-[120px] md:h-10 rounded">Open</button>
+            <button id="close-tab"
+                class="bg-white text-[#64748B]  btn text-[16px] font-semibold md:w-[120px] md:h-10 rounded">Closed</button>
+        </section>
 
+        <!-- all issues -->
+        <section class="max-w-[95%] md:max-w-[69%] mx-auto bg-white rounded-lg shadow    mt-4  ">
+            <!-- issues heading -->
+            <div
+                class="issues-heading p-6 flex flex-col gap-3 sm:flex-row sm:justify-between items-center border-b-2 border-gray-200">
+                <div class="sh-left flex items-center gap-2">
+                    <div class="bg-[#ECE4FF] rounded-full p-2.5">
+                        <img class="w-8" src="./assets/Aperture.png" alt="">
+                    </div>
+                    <div class="">
+                        <h2 id="issue-count" class="font-semibold text-xl"><span id="issues-count">50</span> Issues</h2>
+                        <p class="text-[#64748B]">Track and manage your project issues</p>
+                    </div>
+
+                </div>
+
+                <div class="sh-right flex items-center gap-4">
+                    <div class="flex items-center gap-2">
+                        <div class="status status-lg bg-[#00A96E]"></div>
+                        <p class="font-medium text">Open</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="status status-lg bg-[#A855F7]"></div>
+                        <p class="font-medium text">Closed</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- issues container -->
+            <div id="issues-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#FBFBFB] p-6">
+                <!-- issues card will dynamically generate here  -->
+
+                <div class="issue-card  border-[#00A96E] border-t-4 rounded-md shadow-md">
+
+                    <div class="space-y-3 border-b border-gray-200  p-4">
+                        <div class="flex justify-between">
+                            <img class="issue-status " src="./assets/Open-Status.png" alt="">
+
+                            <div class="issue-priority 
+                            badge-error badge badge-soft  w-20 rounded-xl">HIGH</div>
+                        </div>
+
+                        <h2 class="issue-title 
+                         font-semibold ">Fix navigation menu on mobile devices</h2>
+
+                        <p class="issue-description 
+                        text-[#64748B] text-[14px]">The navigation menu doesn't collapse properly on mobile devices.
+                            Need to fix the responsive behavior.</p>
+
+                        <div class="issue-labels 
+                        flex flex-wrap gap-1">
+                            <div class="badge-error bg-[#FEECEC] text-[#EF4444] badge badge-outline  rounded-xl "><i
+                                    class="fa-solid fa-bug"></i>BUG</div>
+                            <div class="badge-warning bg-[#FFF8DB] text-[#D97706] badge badge-outline  rounded-xl "><i
+                                    class="fa-regular fa-life-ring"></i>help wanted</div>
+                            <div class="badge-success bg-[#DEFCE8] text-[#00A96E] badge badge-outline  rounded-xl "><i
+                                    class="fa-regular fa-star"></i>Enhancement</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 p-4 text-[#64748B] text-[12px]">
+                        <div class="flex justify-between">
+                            <p class="issue-author">Author: #1 by john_doe</p>
+                            <p class="issue-createdAt">Created: 1/15/2024 </p>
+                        </div>
+                        <div class="flex justify-between">
+                            <p class="issue-assignee">Assignee: john_doe</p>
+                            <p class="issue-updatedAt">Updated: 1/15/2024 </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
 
     </main>
-
 
 
     <script src="./scripts/machine.js"></script>
