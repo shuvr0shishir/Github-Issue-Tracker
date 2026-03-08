@@ -124,11 +124,7 @@ function displayIssues(allIssues) {
 const allTab = getById('all-tab');
 allTab.addEventListener('click', () => {
     toggle('all-tab')
-
-    const issuesCount = getById('issues-count')
-    issuesCount.innerHTML = allIssues.length;
-
-    loadIssues();
+    loadIssues()
 
 });
 
