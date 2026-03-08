@@ -21,7 +21,30 @@
     background-color: #FFF8DB;
 }
 
+.badge-normal{
+    color: #9CA3AF;
+    background-color: #EEEFF2;
+}
+
 .badge-success{
     color: #00A96E;
     background-color: #DEFCE8;
+}
+
+.badge-good{
+    color: #7900a9;
+    background-color: #f2dbff;
+}
+
+.badge-doc{
+    color: #0079a9;
+    background-color: #dbf2ff;
+}
+
+.status-open{
+    border-top: 4px solid #00A96E;
+}
+
+.status-closed{
+    border-top: 4px solid #A855F7;
 }
