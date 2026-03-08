@@ -41,6 +41,16 @@
     background-color: #dbf2ff;
 }
 
+.badge-opened{
+    color: white;
+    background-color: #00A96E;
+}
+
+.badge-closed{
+    color: white;
+    background-color: #A855F7;
+}
+
 .status-open{
     border-top: 4px solid #00A96E;
 }

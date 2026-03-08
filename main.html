@@ -34,7 +34,8 @@
                         <i class="fa-brands fa-sistrix text-[#64748B]"></i>
                         <input type="search" required placeholder="Search issues..." />
                     </label>
-                    <button class="btn btn-accent shadow-none rounded-md rounded-l-none md:text-[16px] "><i class="fa-solid fa-magnifying-glass md:hidden"></i>
+                    <button class="btn btn-accent shadow-none rounded-md rounded-l-none md:text-[16px] "><i
+                            class="fa-solid fa-magnifying-glass md:hidden"></i>
                         <span class="hidden sm:inline">Search</span></button>
                 </div>
 
@@ -47,15 +48,19 @@
     <main class="bg-[#F8FAFC] py-5 md:py-15 min-h-screen">
         <!-- tab section -->
         <section class="max-w-[95%] md:max-w-[69%] mx-auto bg-white rounded-lg flex flex-row gap-2 p-6 shadow">
-            <button id="all-tab" class="tab-btns btn btn-primary text-[16px] font-semibold md:w-[120px] md:h-10 rounded">All</button>
-            <button id="open-tab" class="tab-btns btn  text-[16px] font-semibold md:w-[120px] md:h-10 rounded">Open</button>
-            <button id="close-tab" class="tab-btns btn  text-[16px] font-semibold md:w-[120px] md:h-10 rounded">Closed</button>
+            <button id="all-tab"
+                class="tab-btns btn btn-primary text-[16px] font-semibold md:w-[120px] md:h-10 rounded">All</button>
+            <button id="open-tab"
+                class="tab-btns btn  text-[16px] font-semibold md:w-[120px] md:h-10 rounded">Open</button>
+            <button id="close-tab"
+                class="tab-btns btn  text-[16px] font-semibold md:w-[120px] md:h-10 rounded">Closed</button>
         </section>
 
         <!-- all issues -->
-        <section class="max-w-[95%] md:max-w-[69%] mx-auto bg-white rounded-lg shadow mt-4  ">
+        <section id="issues-box" class="max-w-[95%] md:max-w-[69%] mx-auto bg-white rounded-lg shadow mt-4 ">
             <!-- issues heading -->
-            <div class="issues-heading p-6 flex flex-col gap-3 sm:flex-row sm:justify-between items-center border-b-2 border-gray-200">
+            <div
+                class="issues-heading p-6 flex flex-col gap-3 sm:flex-row sm:justify-between items-center border-b-2 border-gray-200">
                 <div class="ih-left flex items-center gap-2">
                     <div class="bg-[#ECE4FF] rounded-full p-2.5">
                         <img class="w-8" src="./assets/Aperture.png" alt="">
@@ -79,11 +84,33 @@
             </div>
 
             <!-- issues container -->
-            <div id="issues-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#FBFBFB] p-6 rounded-b-lg">
+            <div id="issues-container"
+                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#FBFBFB] p-6 rounded-b-lg">
                 <!-- issues card will dynamically generate here  -->
             </div>
         </section>
 
+        <!-- Loading screen -->
+        <section id="spinner1" class="hidden">
+            <div class="py-10 flex justify-center items-center">
+                <span class="loading loading-ring loading-xl text-primary"></span>
+            </div>
+        </section>
+
+        <!-- Modal - issue pop up -->
+        <dialog id="issue_modal" class="modal modal-bottom sm:modal-middle bg-[#002C5C50]">
+            <div class="modal-box p-8">
+                <div id="issue-details" class="space-y-6">
+                    <!-- details will generate dynamically -->
+                </div>
+                <div class="modal-action ">
+                    <form method="dialog">
+                        <!-- if there is a button in form, it will close the modal -->
+                        <button class="btn btn-primary outline-none">Close</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
     </main>
 
 

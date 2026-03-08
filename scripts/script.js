@@ -15,8 +15,82 @@ function toggle(id) {
 }
 
 
-// issues load from here
+// loading 
+function Loading(status, spinnerId, boxId) {
+    if (status) {
+        getById(spinnerId).classList.remove('hidden')
+        getById(boxId).classList.add('hidden')
+    } else {
+        getById(spinnerId).classList.add('hidden')
+        getById(boxId).classList.remove('hidden')
+    }
+}
+
+
+// modal - fetching
+async function loadIssueDetails(id) {
+    const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
+    const res = await fetch(url);
+    const details = await res.json()
+
+    displayIssueDetails(details.data);
+}
+
+
+// modal - issue pop up
+function displayIssueDetails(i) {
+    const issueDetails = getById('issue-details');
+
+    // "status": "success",
+    // "message": "Issue fetched successfully",
+    // "data": {
+    // "id": 33,
+    // "title": "Add bulk operations support",
+    // "description": "Allow users to perform bulk actions like delete, update status on multiple items at once.",
+    // "status": "open",
+    // "labels": [
+    // "enhancement"
+    // ],
+    // "priority": "low",
+    // "author": "bulk_barry",
+    // "assignee": "",
+    // "createdAt": "2024-02-02T10:00:00Z",
+    // "updatedAt": "2024-02-02T10:00:00Z"
+    // }
+
+    issueDetails.innerHTML = `<div>
+                        <h2 class="text-[#1F2937] font-bold text-2xl mb-2">${i.title}</h2>
+                        <div class="flex gap-2 items-center">
+                            <div class="badge ${i.status === "open" ? "badge-opened" : "badge-closed"} font-medium rounded-xl p-2">${i.status === "open" ? "Opened" : "Closed"}</div>
+                            <div class="w-[5px] h-[5px] rounded-full bg-[#64748B]"></div>
+                            <p class="">Opened by ${i.author ? i.author : "N/A"}</p>
+                            <div class="w-[5px] h-[5px] rounded-full bg-[#64748B]"></div>
+                            <p class="issue-updatedAt">${dateFormatter(i.updatedAt)}</p>
+                        </div>
+                    </div>
+                    <div class="issue-labels flex flex-wrap gap-1">
+                        ${labelMaker(i.labels)}
+                    </div>
+                    <p class="issue-description text-[#64748B]">${i.description}</p>
+                    <div class="bg-[#F8FAFC] rounded-xl p-4 grid grid-cols-2 gap-2.5">
+                        <div class="space-y-1">
+                            <p class="text-[#64748B]">Assignee:</p>
+                            <p class="font-semibold text-[#1F2937]">${i.assignee ? i.assignee : "N/A"}</p>
+                        </div>
+                        <div class="space-y-1">
+                            <p class="text-[#64748B]">Priority:</p>
+                            <div class="issue-priority ${priorityCheck(i.priority)} badge font-medium w-20 rounded-xl">
+                                ${i.priority.toUpperCase()}</div>
+                        </div>
+                    </div>`;
+
+    getById('issue_modal').showModal();
+}
+
+
+// issues load from here ----->
 async function loadIssues() {
+    Loading(true, 'spinner1', 'issues-box')
     const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
     const data = await res.json()
     allIssues = data.data;
@@ -37,6 +111,7 @@ async function loadIssues() {
 
     // first display call
     displayIssues(allIssues)
+    Loading(false, 'spinner1', 'issues-box')
 }
 
 
@@ -118,7 +193,7 @@ function displayIssues(selectedTab) {
         const issueCard = document.createElement('div');
         issueCard.className = `issue-card ${i.status === "open" ? "status-open" : "status-closed"} rounded-md shadow-md`     //card status border top
         issueCard.innerHTML = `
-        <div class="space-y-3 border-b border-gray-200  p-4">
+        <div onclick="loadIssueDetails(${i.id})" class="space-y-3 border-b border-gray-200  p-4">
         <div class="flex justify-between">
             <img class="issue-status" src="./assets/${i.status === "open" ? "status-open" : "status-closed"}.png" alt="">
                 <div class="issue-priority ${priorityCheck(i.priority)} badge badge-soft font-medium w-20 rounded-xl">${i.priority.toUpperCase()}</div>
@@ -149,7 +224,9 @@ function displayIssues(selectedTab) {
 const allTab = getById('all-tab');
 allTab.addEventListener('click', () => {
     toggle('all-tab')
+    Loading(true, 'spinner1', 'issues-box')
     displayIssues(allIssues);
+    Loading(false, 'spinner1', 'issues-box')
 });
 
 
@@ -157,7 +234,9 @@ allTab.addEventListener('click', () => {
 const openTab = getById('open-tab');
 openTab.addEventListener('click', () => {
     toggle('open-tab')
+    Loading(true, 'spinner1', 'issues-box')
     displayIssues(openIssues);
+    Loading(false, 'spinner1', 'issues-box')
 });
 
 
@@ -165,5 +244,10 @@ openTab.addEventListener('click', () => {
 const closeTab = getById('close-tab');
 closeTab.addEventListener('click', () => {
     toggle('close-tab')
+    Loading(true, 'spinner1', 'issues-box')
     displayIssues(closedIssues);
+    Loading(false, 'spinner1', 'issues-box')
 });
+
+
+// done by dev shishir bhai ;)
