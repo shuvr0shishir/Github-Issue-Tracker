@@ -23,19 +23,23 @@
 <body>
     <header class="border-b border-gray-200">
         <nav class="max-w-[90%] mx-auto flex flex-col gap-5 md:flex-row justify-between items-center p-4">
-            <div class="nav-left flex items-center h-9 gap-1">
+            <div class="nav-left flex items-center h-9 gap-2">
                 <img class="h-full" src="./assets/github-logo.png" alt="">
                 <h1 class="text-2xl font-semibold">GitHub Issues Tracker</h1>
             </div>
 
             <div class="nav-right flex gap-4">
-                <label class="input outline-none rounded-lg border-gray-200 max-w-[300px]">
-                    <i class="fa-brands fa-sistrix text-[#64748B]"></i>
-                    <input type="search" required placeholder="Search issues..." />
-                </label>
-                <button class="btn bg-[#4A00FF] text-white rounded-md md:text-[16px] "><i class="fa-solid fa-plus"></i>
-                    New
-                    Issue</button>
+                <div class="flex">
+                    <label class="input outline-none rounded-r-none border-gray-200 max-w-[300px]">
+                        <i class="fa-brands fa-sistrix text-[#64748B]"></i>
+                        <input type="search" required placeholder="Search issues..." />
+                    </label>
+                    <button class="btn btn-accent shadow-none rounded-md rounded-l-none md:text-[16px] "><i class="fa-solid fa-magnifying-glass md:hidden"></i>
+                        <span class="hidden sm:inline">Search</span></button>
+                </div>
+
+                <button class="btn btn-primary rounded-md md:text-[16px] "><i class="fa-solid fa-plus"></i>
+                    <span class="hidden sm:inline">New Issue</span></button>
             </div>
         </nav>
     </header>
@@ -44,15 +48,13 @@
         <!-- tab section -->
         <section class="max-w-[95%] md:max-w-[69%] mx-auto bg-white rounded-lg flex flex-row gap-2 p-6 shadow">
             <button id="all-tab"
-                class="bg-[#4A00FF] text-white  btn text-[16px] font-semibold md:w-[120px] md:h-10 rounded">All</button>
-            <button id="open-tab"
-                class="bg-white text-[#64748B]  btn text-[16px] font-semibold md:w-[120px] md:h-10 rounded">Open</button>
-            <button id="close-tab"
-                class="bg-white text-[#64748B]  btn text-[16px] font-semibold md:w-[120px] md:h-10 rounded">Closed</button>
+                class="btn btn-primary text-[16px] font-semibold md:w-[120px] md:h-10 rounded">All</button>
+            <button id="open-tab" class="btn  text-[16px] font-semibold md:w-[120px] md:h-10 rounded">Open</button>
+            <button id="close-tab" class="btn  text-[16px] font-semibold md:w-[120px] md:h-10 rounded">Closed</button>
         </section>
 
         <!-- all issues -->
-        <section class="max-w-[95%] md:max-w-[69%] mx-auto bg-white rounded-lg shadow    mt-4  ">
+        <section class="max-w-[95%] md:max-w-[69%] mx-auto bg-white rounded-lg shadow mt-4  ">
             <!-- issues heading -->
             <div
                 class="issues-heading p-6 flex flex-col gap-3 sm:flex-row sm:justify-between items-center border-b-2 border-gray-200">
@@ -80,7 +82,8 @@
             </div>
 
             <!-- issues container -->
-            <div id="issues-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#FBFBFB] p-6">
+            <div id="issues-container"
+                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#FBFBFB] p-6 rounded-b-lg">
                 <!-- issues card will dynamically generate here  -->
 
                 <div class="issue-card  border-[#00A96E] border-t-4 rounded-md shadow-md">
@@ -97,16 +100,16 @@
                          font-semibold ">Fix navigation menu on mobile devices</h2>
 
                         <p class="issue-description 
-                        text-[#64748B] text-[14px]">The navigation menu doesn't collapse properly on mobile devices.
+                        text-[#64748B] text-[14px] line-clamp-2">The navigation menu doesn't collapse properly on mobile devices.
                             Need to fix the responsive behavior.</p>
 
                         <div class="issue-labels 
                         flex flex-wrap gap-1">
-                            <div class="badge-error bg-[#FEECEC] text-[#EF4444] badge badge-outline  rounded-xl "><i
+                            <div class="badge-error badge badge-outline  rounded-xl "><i
                                     class="fa-solid fa-bug"></i>BUG</div>
-                            <div class="badge-warning bg-[#FFF8DB] text-[#D97706] badge badge-outline  rounded-xl "><i
+                            <div class="badge-warning  badge badge-outline  rounded-xl "><i
                                     class="fa-regular fa-life-ring"></i>help wanted</div>
-                            <div class="badge-success bg-[#DEFCE8] text-[#00A96E] badge badge-outline  rounded-xl "><i
+                            <div class="badge-success  badge badge-outline  rounded-xl "><i
                                     class="fa-regular fa-star"></i>Enhancement</div>
                         </div>
                     </div>

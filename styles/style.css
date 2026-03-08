@@ -4,3 +4,24 @@
 *{
     font-family: "Geist", sans-serif;
 }
+
+.btn-primary{
+    color: white;
+    background-color: #4A00FF;
+    box-shadow: none;
+}
+
+.badge-error{
+    color: #EF4444;
+    background-color: #FEECEC;
+}
+
+.badge-warning{
+    color: #D97706;
+    background-color: #FFF8DB;
+}
+
+.badge-success{
+    color: #00A96E;
+    background-color: #DEFCE8;
+}
