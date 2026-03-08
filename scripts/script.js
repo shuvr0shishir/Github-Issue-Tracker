@@ -1,4 +1,8 @@
 // home functionalities
+let allIssues = []
+let openIssues = []
+let closedIssues = []
+
 
 // tab toggle
 function toggle(id) {
@@ -10,14 +14,34 @@ function toggle(id) {
     clickedBtn.classList.add('btn-primary');
 }
 
+
 // issues load from here
 async function loadIssues() {
     const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
     const data = await res.json()
-    const allIssues = data.data;
-    displayIssues(allIssues);
+    allIssues = data.data;
+
+    // open issues
+    allIssues.forEach(i => {
+        if (i.status === "open") {
+            openIssues.push(i);
+        }
+    })
+
+    // closed issue
+    allIssues.forEach(i => {
+        if (i.status === "closed") {
+            closedIssues.push(i);
+        }
+    })
+
+    // first display call
+    displayIssues(allIssues)
 }
-loadIssues()    //load issues first call
+
+
+//load issues for the first call
+loadIssues()
 
 
 // Conditional Rendering Functions
@@ -64,13 +88,15 @@ function dateFormatter(dateString) {
     return new Date(dateString).toLocaleDateString('en-US');
 }
 
-function displayIssues(allIssues) {
+
+// card rendering function
+function displayIssues(selectedTab) {
+    // update issues count
     const issuesCount = getById('issues-count')
-    issuesCount.innerHTML = allIssues.length;
+    issuesCount.innerHTML = selectedTab.length;
 
     const issuesContainer = getById('issues-container')
     issuesContainer.innerHTML = ''
-
 
     //Data Info----------->
     // "id": 1,
@@ -87,7 +113,8 @@ function displayIssues(allIssues) {
     // "createdAt": "2024-01-15T10:30:00Z",
     // "updatedAt": "2024-01-15T10:30:00Z"
 
-    allIssues.forEach(i => {
+    /* issue card generating */
+    selectedTab.forEach(i => {
         const issueCard = document.createElement('div');
         issueCard.className = `issue-card ${i.status === "open" ? "status-open" : "status-closed"} rounded-md shadow-md`     //card status border top
         issueCard.innerHTML = `
@@ -118,28 +145,25 @@ function displayIssues(allIssues) {
 }
 
 
-
-
 // allTab - click event handler
 const allTab = getById('all-tab');
 allTab.addEventListener('click', () => {
     toggle('all-tab')
-    loadIssues()
-
+    displayIssues(allIssues);
 });
-
 
 
 // openTab - click event handler
 const openTab = getById('open-tab');
 openTab.addEventListener('click', () => {
     toggle('open-tab')
+    displayIssues(openIssues);
 });
-
 
 
 // closeTab - click event handler
 const closeTab = getById('close-tab');
 closeTab.addEventListener('click', () => {
     toggle('close-tab')
+    displayIssues(closedIssues);
 });
