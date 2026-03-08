@@ -21,7 +21,36 @@
 </head>
 
 <body>
-    <h1>home</h1>
+    <header class="border-b border-gray-200">
+        <nav class="max-w-[90%] mx-auto flex flex-col gap-5 md:flex-row justify-between items-center p-4">
+            <div class="nav-left flex items-center h-9 gap-1">
+                <img class="h-full" src="./assets/github-logo.png" alt="">
+                <h1 class="text-2xl font-semibold">GitHub Issues Tracker</h1>
+            </div>
+
+            <div class="nav-right flex gap-4">
+                <label class="input outline-none rounded-lg border-gray-200 max-w-[300px]">
+                    <i class="fa-brands fa-sistrix text-[#64748B]"></i>
+                    <input type="search" required placeholder="Search issues..." />
+                </label>
+                <button class="btn bg-[#4A00FF] text-white rounded-md md:text-[16px] "><i class="fa-solid fa-plus"></i> New
+                    Issue</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="bg-[#F8FAFC] py-5 md:py-15">
+        <!-- tab section -->
+         <section class="md:max-w-[69%] mx-auto bg-white rounded-lg flex flex-row gap-2 p-6 shadow">
+            <button id="all-tab" class="bg-[#4A00FF] text-white  btn text-[16px] font-semibold md:w-[120px] md:h-10 rounded">All</button>
+            <button id="open-tab" class="bg-white text-[#64748B]  btn text-[16px] font-semibold md:w-[120px] md:h-10 rounded">Open</button>
+            <button id="close-tab" class="bg-white text-[#64748B]  btn text-[16px] font-semibold md:w-[120px] md:h-10 rounded">Closed</button>
+         </section>
+
+
+    </main>
+
+
 
     <script src="./scripts/machine.js"></script>
     <script src="./scripts/script.js"></script>
