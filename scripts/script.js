@@ -16,13 +16,13 @@ function toggle(id) {
 
 
 // loading 
-function Loading(status, spinnerId, boxId) {
+function Loading(status) {
     if (status) {
-        getById(spinnerId).classList.remove('hidden')
-        getById(boxId).classList.add('hidden')
+        getById('spinner').classList.remove('hidden')
+        getById('issues-box').classList.add('hidden')
     } else {
-        getById(spinnerId).classList.add('hidden')
-        getById(boxId).classList.remove('hidden')
+        getById('spinner').classList.add('hidden')
+        getById('issues-box').classList.remove('hidden')
     }
 }
 
@@ -90,7 +90,7 @@ function displayIssueDetails(i) {
 
 // issues load from here ----->
 async function loadIssues() {
-    Loading(true, 'spinner1', 'issues-box')
+    Loading(true)
     const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
     const data = await res.json()
     allIssues = data.data;
@@ -111,7 +111,7 @@ async function loadIssues() {
 
     // first display call
     displayIssues(allIssues)
-    Loading(false, 'spinner1', 'issues-box')
+    Loading(false)
 }
 
 
@@ -224,9 +224,13 @@ function displayIssues(selectedTab) {
 const allTab = getById('all-tab');
 allTab.addEventListener('click', () => {
     toggle('all-tab')
-    Loading(true, 'spinner1', 'issues-box')
+
+    Loading(true)
+    setTimeout(() => {
+        Loading(false)
+    }, 300);
+
     displayIssues(allIssues);
-    Loading(false, 'spinner1', 'issues-box')
 });
 
 
@@ -234,9 +238,14 @@ allTab.addEventListener('click', () => {
 const openTab = getById('open-tab');
 openTab.addEventListener('click', () => {
     toggle('open-tab')
-    Loading(true, 'spinner1', 'issues-box')
+
+    Loading(true);
+    setTimeout(() => {
+        Loading(false)
+    }, 300);
+
     displayIssues(openIssues);
-    Loading(false, 'spinner1', 'issues-box')
+    
 });
 
 
@@ -244,10 +253,38 @@ openTab.addEventListener('click', () => {
 const closeTab = getById('close-tab');
 closeTab.addEventListener('click', () => {
     toggle('close-tab')
-    Loading(true, 'spinner1', 'issues-box')
+
+    Loading(true)
+    setTimeout(() => {
+        Loading(false)
+    }, 300);
+    
     displayIssues(closedIssues);
-    Loading(false, 'spinner1', 'issues-box')
 });
 
+
+// search - click event handler
+const searchBtn = getById('search-btn');
+searchBtn.addEventListener('click', async () => {
+    const searchTxt = getById('search-txt');
+    if (searchTxt.value === '') {
+        alert('Enter some word!');
+        return
+    }
+
+    Loading(true);
+    const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchTxt.value}`);
+    const data = await res.json()
+    const searchResult = data.data;
+
+    // tab highlight remove
+    const allBtns = document.querySelectorAll('.tab-btns');
+    allBtns.forEach(btn => {
+        btn.classList.remove('btn-primary');
+    })
+
+    displayIssues(searchResult);
+    Loading(false)
+})
 
 // done by dev shishir bhai ;)

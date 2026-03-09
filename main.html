@@ -31,15 +31,15 @@
             <div class="nav-right flex gap-4">
                 <div class="flex">
                     <label class="input outline-none rounded-r-none border-gray-200 max-w-[300px]">
-                        <i class="fa-brands fa-sistrix text-[#64748B]"></i>
-                        <input type="search" required placeholder="Search issues..." />
+                        <input id="search-txt" type="search" required placeholder="Search Issues..." />
                     </label>
-                    <button class="btn btn-accent shadow-none rounded-md rounded-l-none md:text-[16px] "><i
+                    <button id="search-btn" class="btn btn-accent shadow-none rounded-md rounded-l-none md:text-[16px] "><i
                             class="fa-solid fa-magnifying-glass md:hidden"></i>
                         <span class="hidden sm:inline">Search</span></button>
                 </div>
 
-                <button class="btn btn-primary rounded-md md:text-[16px] "><i class="fa-solid fa-plus"></i>
+                <!-- add new  issue btn-->
+                <button id="" class="btn btn-primary rounded-md md:text-[16px] "><i class="fa-solid fa-plus"></i>
                     <span class="hidden sm:inline">New Issue</span></button>
             </div>
         </nav>
@@ -60,7 +60,7 @@
         <section id="issues-box" class="max-w-[95%] md:max-w-[69%] mx-auto bg-white rounded-lg shadow mt-4 ">
             <!-- issues heading -->
             <div
-                class="issues-heading p-6 flex flex-col gap-3 sm:flex-row sm:justify-between items-center border-b-2 border-gray-200">
+                class="issues-heading p-6 flex gap-3  sm:justify-between items-center border-b-2 border-gray-200">
                 <div class="ih-left flex items-center gap-2">
                     <div class="bg-[#ECE4FF] rounded-full p-2.5">
                         <img class="w-8" src="./assets/Aperture.png" alt="">
@@ -71,13 +71,13 @@
                     </div>
                 </div>
 
-                <div class="ih-right flex items-center gap-4">
+                <div class="ih-right flex flex-col sm:flex-row items-start sm:items-center sm:gap-4">
                     <div class="flex items-center gap-2">
-                        <div class="status status-lg bg-[#00A96E]"></div>
+                        <div class="status status-lg bg-[#00A96E] shadow-none"></div>
                         <p class="font-medium text">Open</p>
                     </div>
                     <div class="flex items-center gap-2">
-                        <div class="status status-lg bg-[#A855F7]"></div>
+                        <div class="status status-lg bg-[#A855F7] shadow-none"></div>
                         <p class="font-medium text">Closed</p>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
         </section>
 
         <!-- Loading screen -->
-        <section id="spinner1" class="hidden">
+        <section id="spinner" class="hidden">
             <div class="py-10 flex justify-center items-center">
                 <span class="loading loading-ring loading-xl text-primary"></span>
             </div>
