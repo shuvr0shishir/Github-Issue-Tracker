@@ -35,7 +35,8 @@ async function loadIssueDetails(id) {
     const res = await fetch(url);
     const details = await res.json()
 
-    displayIssueDetails(details.data);
+    const issue = details.data
+    issue && displayIssueDetails(issue)
 }
 
 
@@ -182,21 +183,10 @@ async function loadIssues() {
     Loading(true)
     const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
     const data = await res.json()
+
     allIssues = data.data;
-
-    // open issues
-    allIssues.forEach(i => {
-        if (i.status === "open") {
-            openIssues.push(i);
-        }
-    })
-
-    // closed issue
-    allIssues.forEach(i => {
-        if (i.status === "closed") {
-            closedIssues.push(i);
-        }
-    })
+    openIssues = allIssues.filter(i => i.status === "open");
+    closedIssues = allIssues.filter(i => i.status === "closed");
 
     // first display call
     displayIssues(allIssues)
@@ -368,7 +358,7 @@ async function searchFunctionality(e) {
 }
 
 // search btn click event handler
-searchBtn.addEventListener('click',searchFunctionality)
+searchBtn.addEventListener('click', searchFunctionality)
 
 // search - enter btn event handler
 searchTxt.addEventListener('keydown', (e) => {
