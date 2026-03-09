@@ -309,6 +309,9 @@ function refresh() {
     } else if (currentTab === 'close-tab') {
         displayIssues(closedIssues);
     }
+
+    // clear search input
+    searchTxt.value = '';
 }
 
 
@@ -339,11 +342,12 @@ closeTab.addEventListener('click', () => {
 });
 
 
-// search - click event handler
+// search 
 const searchBtn = getById('search-btn');
 const searchTxt = getById('search-txt');
-searchBtn.addEventListener('click', async () => {
-    if (searchTxt.value === '') {
+
+async function searchFunctionality(e) {
+    if (searchTxt.value.trim() === '') {
         alert('Enter some word!');
         return
     }
@@ -361,7 +365,17 @@ searchBtn.addEventListener('click', async () => {
 
     displayIssues(searchResult);
     Loading(false)
-})
+}
+
+// search btn click event handler
+searchBtn.addEventListener('click',searchFunctionality)
+
+// search - enter btn event handler
+searchTxt.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        searchFunctionality();
+    }
+});
 
 
 // new issue - click event handler
