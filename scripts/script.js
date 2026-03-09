@@ -3,6 +3,8 @@ let allIssues = []
 let openIssues = []
 let closedIssues = []
 
+// current tab
+let currentTab = 'all-tab';
 
 // tab toggle
 function toggle(id) {
@@ -40,24 +42,6 @@ async function loadIssueDetails(id) {
 // modal - issue pop up
 function displayIssueDetails(i) {
     const issueDetails = getById('issue-details');
-
-    // "status": "success",
-    // "message": "Issue fetched successfully",
-    // "data": {
-    // "id": 33,
-    // "title": "Add bulk operations support",
-    // "description": "Allow users to perform bulk actions like delete, update status on multiple items at once.",
-    // "status": "open",
-    // "labels": [
-    // "enhancement"
-    // ],
-    // "priority": "low",
-    // "author": "bulk_barry",
-    // "assignee": "",
-    // "createdAt": "2024-02-02T10:00:00Z",
-    // "updatedAt": "2024-02-02T10:00:00Z"
-    // }
-
     issueDetails.innerHTML = `<div>
                         <h2 class="text-[#1F2937] font-bold text-2xl mb-2">${i.title}</h2>
                         <div class="flex gap-2 items-center">
@@ -84,11 +68,116 @@ function displayIssueDetails(i) {
                         </div>
                     </div>`;
 
-    getById('issue_modal').showModal();
+    getById('issue-modal').showModal();
 }
 
 
-// issues load from here ----->
+// modal - new issue post
+function displayIssueForm() {
+    getById('issue-post-modal').showModal();
+
+    const issueInputBox = getById('issue-input-box');
+    issueInputBox.innerHTML = `
+    <form id="issue-form" class="space-y-3">
+            <!-- Title -->
+            <div>
+                <label class="font-medium">Title</label>
+                <input id="new-title" type="text" name="title" placeholder="Enter issue title" class="input input-bordered outline-none w-full"
+                    required>
+            </div>
+
+            <!-- Description -->
+            <div>
+                <label class="font-medium">Description</label>
+                <textarea id="new-description" name="description" placeholder="Enter issue description"
+                    class="textarea textarea-bordered outline-none w-full" required></textarea>
+            </div>
+
+            <!-- Labels -->
+            <div>
+                <label class="font-medium">Labels</label>
+                <div id="new-labels" class="grid grid-cols-2 gap-1">
+                    <label><input type="checkbox" value="bug"> Bug</label>
+                    <label><input type="checkbox" value="good first issue"> Good First Issue</label>
+                    <label><input type="checkbox" value="enhancement"> Enhancement</label>
+                    <label><input type="checkbox" value="help wanted"> Help Wanted</label>
+                    <label><input type="checkbox" value="documentation"> Documentation</label>
+                </div>
+            </div>
+
+            <!-- Priority -->
+            <div>
+                <label class="font-medium">Priority</label>
+                <select id="new-priority" name="priority" class="select select-bordered outline-none w-full">
+                    <option disabled selected hidden>Choose priority</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+
+            <!-- Status -->
+            <div>
+                <label class="font-medium">Status</label>
+                <select id="new-status" name="status" class="select select-bordered outline-none w-full">
+                    <option disabled selected hidden>Choose status</option>
+                    <option value="open">Open</option>
+                    <option value="closed">Closed</option>
+                </select>
+            </div>
+
+
+            <!-- Author -->
+            <div>
+                <label class="font-medium">Author</label>
+                <input id="new-author" type="text" name="author" placeholder="Enter author name" class="input input-bordered outline-none w-full">
+            </div>
+
+            <!-- Assignee -->
+            <div>
+                <label class="font-medium">Assignee</label>
+                <input id="new-assignee" type="text" name="assignee" placeholder="Assign to someone" class="input input-bordered outline-none w-full">
+            </div>
+        </form>`;
+    // onclick handler on post btn in html onclick="issueMaker()"
+}
+
+// new issue maker
+function issueMaker() {
+    // for multiple labels 
+    const selectedLabels = document.querySelectorAll('#new-labels input:checked');
+    let labels = [...selectedLabels];
+    labels = labels.map(el => el.value);
+
+    // making data object with form data
+    const newIssue = {
+        id: allIssues.length + 1,
+        title: getById("new-title").value,
+        description: getById("new-description").value,
+        labels: labels,
+        priority: getById("new-priority").value,
+        status: getById("new-status").value,
+        author: getById("new-author").value,
+        assignee: getById("new-assignee").value,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    };
+
+    // after making data object it push as array first element
+    allIssues.unshift(newIssue);
+    if (newIssue.status === "open") {
+        openIssues.unshift(newIssue);
+    } else if (newIssue.status === "closed") {
+        closedIssues.unshift(newIssue);
+    }
+
+    // current tab refresh
+    refresh()
+    toggle(currentTab)
+}
+
+
+// start from here ---------------------------------------------------------------------------------------->
 async function loadIssues() {
     Loading(true)
     const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
@@ -173,22 +262,8 @@ function displayIssues(selectedTab) {
     const issuesContainer = getById('issues-container')
     issuesContainer.innerHTML = ''
 
-    //Data Info----------->
-    // "id": 1,
-    // "title": "Fix navigation menu on mobile devices",
-    // "description": "The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive behavior.",
-    // "status": "open",
-    // "labels": [
-    // "bug",
-    // "help wanted"
-    // ],
-    // "priority": "high",
-    // "author": "john_doe",
-    // "assignee": "jane_smith",
-    // "createdAt": "2024-01-15T10:30:00Z",
-    // "updatedAt": "2024-01-15T10:30:00Z"
 
-    /* issue card generating */
+    // issue card generating
     selectedTab.forEach(i => {
         const issueCard = document.createElement('div');
         issueCard.className = `issue-card ${i.status === "open" ? "status-open" : "status-closed"} rounded-md shadow-md`     //card status border top
@@ -220,53 +295,54 @@ function displayIssues(selectedTab) {
 }
 
 
-// allTab - click event handler
-const allTab = getById('all-tab');
-allTab.addEventListener('click', () => {
-    toggle('all-tab')
-
+// refresh current tab
+function refresh() {
     Loading(true)
     setTimeout(() => {
         Loading(false)
     }, 300);
 
-    displayIssues(allIssues);
+    if (currentTab === 'all-tab') {
+        displayIssues(allIssues);
+    } else if (currentTab === 'open-tab') {
+        displayIssues(openIssues);
+    } else if (currentTab === 'close-tab') {
+        displayIssues(closedIssues);
+    }
+}
+
+
+// allTab - click event handler
+const allTab = getById('all-tab');
+allTab.addEventListener('click', () => {
+    currentTab = 'all-tab';
+    toggle('all-tab')
+    refresh()
 });
 
 
 // openTab - click event handler
 const openTab = getById('open-tab');
 openTab.addEventListener('click', () => {
+    currentTab = 'open-tab';
     toggle('open-tab')
-
-    Loading(true);
-    setTimeout(() => {
-        Loading(false)
-    }, 300);
-
-    displayIssues(openIssues);
-    
+    refresh()
 });
 
 
 // closeTab - click event handler
 const closeTab = getById('close-tab');
 closeTab.addEventListener('click', () => {
+    currentTab = 'close-tab';
     toggle('close-tab')
-
-    Loading(true)
-    setTimeout(() => {
-        Loading(false)
-    }, 300);
-    
-    displayIssues(closedIssues);
+    refresh()
 });
 
 
 // search - click event handler
 const searchBtn = getById('search-btn');
+const searchTxt = getById('search-txt');
 searchBtn.addEventListener('click', async () => {
-    const searchTxt = getById('search-txt');
     if (searchTxt.value === '') {
         alert('Enter some word!');
         return
@@ -286,5 +362,13 @@ searchBtn.addEventListener('click', async () => {
     displayIssues(searchResult);
     Loading(false)
 })
+
+
+// new issue - click event handler
+const newIssueBtn = getById('new-issue-btn');
+newIssueBtn.addEventListener('click', () => {
+    displayIssueForm()
+})
+
 
 // done by dev shishir bhai ;)

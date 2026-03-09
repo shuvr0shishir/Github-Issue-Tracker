@@ -21,11 +21,11 @@
 </head>
 
 <body>
-    <header class="border-b border-gray-200">
-        <nav class="max-w-[90%] mx-auto flex flex-col gap-5 md:flex-row justify-between items-center p-4">
+    <header class="border-b border-gray-200 bg-white/30 backdrop-blur-md sticky top-0 z-50">
+        <nav class="max-w-[90%] mx-auto flex  gap-5  justify-between items-center p-4">
             <div class="nav-left flex items-center h-9 gap-2">
                 <img class="h-full" src="./assets/github-logo.png" alt="">
-                <h1 class="text-2xl font-semibold">GitHub Issues Tracker</h1>
+                <h1 class="hidden md:inline text-2xl font-semibold">GitHub Issues Tracker</h1>
             </div>
 
             <div class="nav-right flex gap-4">
@@ -33,19 +33,21 @@
                     <label class="input outline-none rounded-r-none border-gray-200 max-w-[300px]">
                         <input id="search-txt" type="search" required placeholder="Search Issues..." />
                     </label>
-                    <button id="search-btn" class="btn btn-accent shadow-none rounded-md rounded-l-none md:text-[16px] "><i
+                    <button id="search-btn"
+                        class="btn btn-accent shadow-none rounded-md rounded-l-none md:text-[16px] "><i
                             class="fa-solid fa-magnifying-glass md:hidden"></i>
                         <span class="hidden sm:inline">Search</span></button>
                 </div>
 
                 <!-- add new  issue btn-->
-                <button id="" class="btn btn-primary rounded-md md:text-[16px] "><i class="fa-solid fa-plus"></i>
+                <button id="new-issue-btn" class="btn btn-primary rounded-md md:text-[16px] "><i
+                        class="fa-solid fa-plus"></i>
                     <span class="hidden sm:inline">New Issue</span></button>
             </div>
         </nav>
     </header>
 
-    <main class="bg-[#F8FAFC] py-5 md:py-15 min-h-screen">
+    <main class="bg-[#F8FAFC] py-5 md:py-15 min-h-screen ">
         <!-- tab section -->
         <section class="max-w-[95%] md:max-w-[69%] mx-auto bg-white rounded-lg flex flex-row gap-2 p-6 shadow">
             <button id="all-tab"
@@ -59,8 +61,7 @@
         <!-- all issues -->
         <section id="issues-box" class="max-w-[95%] md:max-w-[69%] mx-auto bg-white rounded-lg shadow mt-4 ">
             <!-- issues heading -->
-            <div
-                class="issues-heading p-6 flex gap-3  sm:justify-between items-center border-b-2 border-gray-200">
+            <div class="issues-heading p-6 flex gap-3  sm:justify-between items-center border-b-2 border-gray-200">
                 <div class="ih-left flex items-center gap-2">
                     <div class="bg-[#ECE4FF] rounded-full p-2.5">
                         <img class="w-8" src="./assets/Aperture.png" alt="">
@@ -98,12 +99,12 @@
         </section>
 
         <!-- Modal - issue pop up -->
-        <dialog id="issue_modal" class="modal modal-bottom sm:modal-middle bg-[#002C5C50]">
-            <div class="modal-box p-8">
-                <div id="issue-details" class="space-y-6">
+        <dialog id="issue-modal" class="modal modal-bottom sm:modal-middle bg-[#002C5C50]">
+            <div class="modal-box p-3 bg-white/30 backdrop-blur-md">
+                <div id="issue-details" class="space-y-6  bg-white p-5 rounded-lg">
                     <!-- details will generate dynamically -->
                 </div>
-                <div class="modal-action ">
+                <div class="modal-action mb-3">
                     <form method="dialog">
                         <!-- if there is a button in form, it will close the modal -->
                         <button class="btn btn-primary outline-none">Close</button>
@@ -111,6 +112,25 @@
                 </div>
             </div>
         </dialog>
+
+        <!-- Modal - new issue -->
+        <dialog id="issue-post-modal" class="modal modal-bottom sm:modal-middle bg-[#002C5C50]">
+            <div class="modal-box p-3 bg-white/30 backdrop-blur-md">
+                <div id="issue-input-box" class="space-y-6  bg-white p-5 rounded-lg">
+                    form
+                </div>
+                <div class="modal-action mb-3 justify-start">
+                    <form class="flex gap-3 " method="dialog">
+                        <!-- post btn with onclick handler -->
+                        <button onclick="issueMaker()" type="submit" class="btn btn-primary px-7">Post</button>
+
+                        <!-- if there is a button in form, it will close the modal -->
+                        <button class="btn btn-primary outline-none">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
+
     </main>
 
 
